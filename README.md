@@ -1,15 +1,9 @@
 ## Install
 
-Install the stylint `peerDependency` manually (only if you're using npm v3 or earlier)
+Install `@intelrug/stylint-loader` package
 
 ```bash
-npm install --save-dev stylint
-```
-
-Install `stylint-loader` package
-
-```bash
-npm install stylint-loader
+yarn install @intelrug/stylint-loader
 ```
 
 
@@ -17,37 +11,15 @@ npm install stylint-loader
 
 [Documentation: Using loaders](http://webpack.github.io/docs/using-loaders.html)
 
-When using with `stylus-loader`, make sure they are in correct order
-
 ```javascript
 module.exports = {
   // ...
   module: {
-    loaders: [
+    rules: [
       {
+        enforce: 'pre',
         test: /\.styl$/,
-        loader: 'stylint'
-      },
-      {
-        test: /\.styl$/,
-        loader: 'style!css!stylus'
-      }
-    ]
-  }
-  // ...
-}
-```
-
-To be safe, you can use `preLoaders` section to check source files, not modified by `stylus-loader`
-
-```js
-module.exports = {
-  // ...
-  module: {
-    preLoaders: [
-      {
-        test: /\.styl$/,
-        loader: 'stylint'
+        loader: '@intelrug/stylint-loader'
       }
     ]
   }
@@ -63,30 +35,40 @@ You can pass [stylint options](https://github.com/rossPatton/stylint#options) di
 - Adding a query string to the loader for this loader usable only
 
 ```js
-{
+module.exports = {
+  // ...
   module: {
-    preLoaders: [
+    rules: [
       {
-        test: /\.js$/,
-        loader: 'stylint-loader?{brackets: "never"}',
-        exclude: /node_modules/,
-      },
+        enforce: 'pre',
+        test: /\.styl$/,
+        loader: '@intelrug/stylint-loader?{brackets: "never"}'
+      }
     ]
   }
+  // ...
 }
 ```
 
-- Adding an `stylint` entry in your webpack config for global options:
+- Adding an `options` entry:
 
 ```js
 module.exports = {
-  stylint: {
-    config: 'path/.stylintrc'
+  // ...
+  module: {
+    rules: [
+      {
+        enforce: 'pre',
+        test: /\.styl$/,
+        loader: '@intelrug/stylint-loader',
+        options: {
+          config: 'path/.stylintrc'
+        }
+      }
+    ]
   }
+  // ...
 }
 ```
-
-**Note that you can use both methods in order to benefit from global & specific options**
-
 
 ## [License](LICENSE)
