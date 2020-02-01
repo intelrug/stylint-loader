@@ -19,11 +19,11 @@ function lint(source, webpackConfig, queryConfig, webpack, callback) {
         if (this.cache.errs.length > 0 || this.cache.warnings.length > 0) {
           if (!this.state.quiet) {
             result = [].concat(this.cache.errs, this.cache.warnings);
-            message = '\n' + result.join('\n\n') + '\n' + this.cache.msg;
+            message = result.join('\n\n') + '\n' + this.cache.msg;
             emitter = this.cache.errs.length > 0 ? webpack.emitError : webpack.emitWarning;
 
             if (emitter) {
-              emitter(message);
+              emitter(new Error(message));
             } else {
               throw new Error(
                 'Your module system doesn\'t support emitWarning. ' +
