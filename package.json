@@ -1,6 +1,6 @@
 {
   "name": "@intelrug/stylint-loader",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Stylint loader with webpack 4 support",
   "keywords": [
     "stylint",
